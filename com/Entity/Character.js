@@ -22,7 +22,7 @@ class Character {
 
     }
 
-    collisionDetect(objects, vec){
+    collisionDetect(objects){
         let allowingDirection = {
             'up': true,
             'down': true,

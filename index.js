@@ -8,7 +8,7 @@ let buttonPressed = {
     'w': false,
     'a': false,
     's': false,
-    'd': false
+    'd': false,
 }
 
 let allowingDirection = {
@@ -22,7 +22,7 @@ let objects = []
 
 const canvas = document.getElementById("root")
 const character = new Character(6, 5)
-const floor = new Floor(0, 0, 10, 1)
+const floor = new Floor(0, 0, 15, 1)
 objects.push(floor)
 const wall = new Wall(-1, 2.5, 2, 1)
 objects.push(wall)
@@ -103,6 +103,8 @@ function moveCharacter(velocity) {
         character.move(0, -velocity, objects)
     if(buttonPressed.d && allowingDirection.right) 
         character.move(velocity, 0, objects)
+    if(allowingDirection.down)
+        character.move(0, -velocity, objects)
 }
 
 
