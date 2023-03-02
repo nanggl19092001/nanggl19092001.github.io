@@ -1,4 +1,58 @@
-#root {
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300&family=Fira+Sans:wght@200&family=Roboto:wght@300&family=Splash&display=swap');
+
+
+
+
+
+#canvas {
+    background-color: black;
     width: 100%;
     height: 100%;
+    position:fixed;
+    z-index: 0;
+}
+
+#root {
+    position: absolute;
+    background-color: transparent;
+    width: 100%;
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#page-navigation {
+    display: flex;
+    width: 40%;
+    justify-content: space-evenly
+}
+
+#page-navigation p {
+    display: inline-block;
+}
+
+#page-navigation p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.text {
+    font-family: 'Fira Sans', sans-serif;
+    color: rgb(57, 255, 20);
+}
+
+.name-title {
+    text-indent: 10px;
+    letter-spacing: 0.5rem;
+    font-size: large;
+}
+
+.name-title:hover {
+    cursor: pointer;
+}
+
+body {
+    height: 3000px;
 }
