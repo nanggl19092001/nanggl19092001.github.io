@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Archivo:wght@300&family=Fira+Sans:wght@200&family=Roboto:wght@300&family=Splash&display=swap');
 
 
-
-
+p {
+    margin: 0;
+}
 
 #canvas {
-    background-color: black;
+    background-color: rgb(20,20,20);
     width: 100%;
     height: 100%;
     position:fixed;
@@ -13,14 +14,43 @@
 }
 
 #root {
-    position: absolute;
+    position: relative;
     background-color: transparent;
-    width: 100%;
+    width: 70%;
+    margin:auto;
 }
+
+body {
+    height: 3000px;
+}
+
+
+/* LOADING SCREEN */
+
+#loading-screen {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(20, 20, 20);
+    position: fixed;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#loading-screen p{
+    font-size: xx-large;
+}
+
+/* HEADER - ABOUT ME */
+
+
 
 #header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
 #page-navigation {
@@ -35,24 +65,129 @@
 
 #page-navigation p:hover {
     cursor: pointer;
-    text-decoration: underline;
+    animation-name: tab-hover;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes tab-hover {
+    0%   {border-bottom: none;}
+    25%  {border-bottom: solid 1px;}
+    50%  {border-bottom: solid 3px;}
+    100% {border-bottom: solid 2px;}
 }
 
 .text {
     font-family: 'Fira Sans', sans-serif;
     color: rgb(57, 255, 20);
+    font-weight: bold;
+}
+
+.page-option {
+    display: inline-block;
+    color:rgb(57, 255, 20)
 }
 
 .name-title {
     text-indent: 10px;
     letter-spacing: 0.5rem;
     font-size: large;
+    padding-left: 0.5rem;
 }
 
 .name-title:hover {
     cursor: pointer;
 }
 
-body {
-    height: 3000px;
+.close-button .minimize-button{
+    font-weight: bolder;
+}
+
+
+#about-me {
+    display: inline-flex;
+    width: 100%;
+}
+
+#about-me-terminal {
+    display: inline-block;
+    padding: 1rem;
+    height: 400px;
+    width: 50%;
+    margin-top: 2rem;
+}
+
+.title-bar {
+    display: inline-flex;
+    width: 100%;
+    background-color: rgba(red, green, blue, 0);
+    border: solid rgb(57, 255, 20) 2px;
+    justify-content: space-between;
+}
+
+.title-bar .title img{
+    display: inline-flex;
+    background-color: rgb(57, 255, 20);
+    padding-right: 2px;
+}
+
+.title-bar .button {
+    display: inline-flex;
+    width: 3rem;
+    justify-content: space-evenly;
+}
+
+.title-bar .title {
+    display: flex;
+}
+
+.title-bar .title p{
+    display: inline-flex;
+    margin-left: 0.5rem;
+}
+
+.workspace {
+    width: 100%;
+    border: solid rgb(57, 255, 20) 2px;
+    padding-top: 1rem;
+    height: 100%;
+}
+
+.workspace p{
+    height: fit-content;
+}
+
+.section {
+    display: flex;
+}
+
+@keyframes cursor {
+    from {border-bottom: none;}
+    to {border-bottom: solid rgb(57, 255, 20);}
+}
+
+.cursor {
+    height: fit-content;
+    margin-top: 1rem;
+    width: 0.75rem;
+    border-bottom: solid rgb(57, 255, 20);
+    animation-name: cursor;
+    animation-duration: 0.8s;
+    animation-iteration-count: infinite;
+}
+
+#about-me-cube {
+    margin: auto;
+    margin-top: 5.5rem;
+    display: inline-flex;
+    width: 60%;
+    height: 400px;
+    align-items: center;
+    justify-content: center;
+}
+
+#about-me-text {
+    display: block;
+    font-size: xx-large;
+    padding: 2rem;
 }
