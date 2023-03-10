@@ -13,7 +13,7 @@ loadingScreen.style.display = "none"
 
 let displayCommand = 'Welcome'
 let introduceText = ' Hi, my name is Nang.'
-let introduceText2 = ' A Computer Science student at Ton Duc Thang University'
+let introduceText2 = ' A Computer Science student at Ton Duc Thang University, my main interest focusing on back-end development, computer graphics and programming in general'
 let countCommand = 0
 let countIntroduceText1 = 0
 let countIntroduceText2 = 0
@@ -43,7 +43,7 @@ function printIntroduceText1(){
             countIntroduceText2++
             printIntroduceText1()
         }
-    }, 200)
+    }, 100)
 }
 
 printCommand()

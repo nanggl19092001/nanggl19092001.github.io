@@ -69,8 +69,6 @@ function renderSphere(){
     function animate(){
         requestAnimationFrame(animate)
 
-        SphereMesh.position.x = 
-
         SphereMesh.rotation.x += 0.005;
         SphereMesh.rotation.y += 0.005;
 
@@ -82,7 +80,13 @@ function renderSphere(){
         pointer.y = - (event.clientY - rect.bottom)
     }
 
+    function onWindowResize(){
+        renderer.setSize(canvasDiv.offsetWidth, canvasDiv.offsetHeight)
+    }
+
     renderer.domElement.addEventListener('pointermove', onPointerMove)
+
+    window.addEventListener('resize', onWindowResize)
 
     animate()
 }
