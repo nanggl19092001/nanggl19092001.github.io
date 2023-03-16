@@ -4,69 +4,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="./index.css">
     <title>Document</title>
 </head>
-<body style="padding: 0; margin: 0;">
-  <div id="loading-screen">
-    <p id="loading-text" class="text">LOADING . . .</p>
-  </div>
-  <div id="canvas"></div>
-  <div id="root">
-    <!-- HEADER -->
-    <div id="header">
-      <h1 class="text name-title">NGUYEN HUU NANG</h1>
-      <div id="page-navigation">
-        <p class="text page-option">aboutMe()</p>
-        <p class="text page-option">contact()</p>
-        <p class="text page-option">recentProjects()</p>
-      </div>
-    </div>
-    <!-- CANVAS EFFECT -->
-    <div id="starter-effect"></div>
-    <!-- ABOUT ME -->
-    <div id="about-me">
-      <!-- ABOUT ME TERMINAL -->
-      <div id="about-me-terminal">
-        <div class="title-bar">
-          <div class="title">
-            <img src="./vendor/img/terminal.svg" alt="terminal" width="20" height="20"><p class="text">Terminal</p>
-          </div>
-          <div class="button">
-            <p class="text minimize-button">-</p>
-            <p class="text close-button">X</p>
-          </div>
+<body>
+    <div id="root">
+        <div id="option">
+            <p>About me</p>
+            <p>Skills</p>
+            <p>Projects</p>
         </div>
-        <div class="workspace">
-          <div class="section">
-            <p class="text" id="command-text">Home:/&#62;</p>
-            <p class="text cursor" id="command-cursor-1"></p>
-          </div>
-          <div id="section">
-            <p class="text" id="about-me-text"></p>
-            <p class="text" id="introduce-me-text"></p>
-          </div>
-        </div>
-      </div>
-      <!-- ABOUT ME CANVAS -->
-      <div id="about-me-cube">
-      </div>
     </div>
-    <div id="skill">
-
-    </div>
-  </div>
 </body>
 <script async src="https://unpkg.com/es-module-shims@1.6.3/dist/es-module-shims.js"></script>
 
 <script type="importmap">
   {
     "imports": {
-      "three": "https://unpkg.com/three@0.150.1/build/three.module.js",
-      "three/addons/": "https://unpkg.com/three@0.150.1/examples/jsm/"
+      "three": "https://unpkg.com/three@0.150.1/build/three.module.js"
     }
   }
 </script>
-<script type="module" src="./index.js"></script>
-<script type="module" src="./src/main.js"></script>
+
+<script type="module">
+
+  import * as THREE from 'three';
+
+  const scene = new THREE.Scene();
+
+</script>
 </html>
