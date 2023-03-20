@@ -10,6 +10,11 @@ let skillButton = document.getElementById("skill-btn")
 let projectButton = document.getElementById("project-btn")
 
 function main() {
+    let bugtrackerTexture = new TextureLoader().load('temp.png')
+    let fadeInProject = false
+    let currentHoverProject = ''
+    let fadeInTime = 0
+
     const canvasDiv = document.getElementById('canvas-div')
     const renderer = new THREE.WebGLRenderer()
     renderer.setSize(window.innerWidth, window.innerHeight, true)
@@ -23,6 +28,78 @@ function main() {
     const pointer = new THREE.Vector2();
 
     let loadingTime = 2.0
+
+    //Project plane init
+    const projectPlaneGeometry = new THREE.PlaneGeometry(4, 4)
+    const projectPlaneMarterial = new THREE.ShaderMaterial({
+        transparent: true,
+        vertexShader:`
+        varying vec2 f_uv;
+        void main() {
+            f_uv = uv;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+        `,
+        fragmentShader: `
+        varying vec2 f_uv;
+        uniform sampler2D u_texture;
+        uniform float u_time;
+
+        float random( float seed )
+        {
+            return fract( 543.2543 * sin( dot( vec2( seed, seed ), vec2( 3525.46, -54.3415 ) ) ) );
+        }
+
+        void main(){
+            float shake_power = 0.01;
+            
+            float shake_rate = 0.3;
+            
+            float shake_speed = 2.0;
+            
+            float shake_block_size = 30.5;
+            
+            float shake_color_rate = 0.01;
+
+            float enable_shift = float(
+                random( trunc(u_time * shake_speed ) )
+            <	shake_rate
+            );
+        
+            vec2 fixed_uv = f_uv;
+            fixed_uv.x += (
+                random(
+                    ( trunc( f_uv.y * shake_block_size ) / shake_block_size )
+                +  u_time
+                ) - 0.5
+            ) * shake_power * enable_shift;
+        
+            vec4 pixel_color = textureLod( u_texture, fixed_uv, 0.0 );
+            pixel_color.r = mix(
+                pixel_color.r
+            ,	textureLod( u_texture, fixed_uv + vec2( shake_color_rate, 0.0 ), 0.0 ).r
+            ,	enable_shift
+            );
+            pixel_color.b = mix(
+                pixel_color.b
+            ,	textureLod( u_texture, fixed_uv + vec2( -shake_color_rate, 0.0 ), 0.0 ).b
+            ,	enable_shift
+            );
+            gl_FragColor = pixel_color;
+        }
+        `,
+        uniforms: {
+            u_texture: {type: 't', value: bugtrackerTexture},
+            u_time: {type: 'f', value: 1}
+        }
+    })
+    const projectPlaneMesh = new THREE.Mesh(projectPlaneGeometry, projectPlaneMarterial)
+
+    projectPlaneMesh.scale.x = 0
+    projectPlaneMesh.scale.y = 0
+    projectPlaneMesh.scale.z = 0
+
+    //Loading bar init
     const loadingPlane = new THREE.PlaneGeometry(1.6, 0.02)
     const loadingPlaneMaterial = new THREE.ShaderMaterial({
         transparent: true,
@@ -49,6 +126,7 @@ function main() {
     })
     const loadingPlaneMesh = new THREE.Mesh(loadingPlane, loadingPlaneMaterial);
 
+    //Sphere Plane init
     const SphereGeometry = new THREE.SphereGeometry(2, 50, 50)
     const SphereMaterial = new THREE.ShaderMaterial({
         transparent:  true,
@@ -74,8 +152,8 @@ function main() {
 
         void main() {
             float d = distance(gl_FragCoord.xy/u_resolution, u_mouse);
-            vec3 color = vec3(1.0, 0.5, 0.5) * d;
-            gl_FragColor = vec4(color, 0.6 * f_uv.x * f_uv.y);
+            vec3 color = vec3(1.0, 0.5, 0.5) * (1.0 - d);
+            gl_FragColor = vec4(color, 0.8 * f_uv.x * f_uv.y);
         }
         `,
         uniforms: {
@@ -100,6 +178,7 @@ function main() {
 
     let playbackTime = 0
 
+    //main render function
     function animate(){
         raycaster.setFromCamera( pointer, camera );
 
@@ -132,6 +211,19 @@ function main() {
         SphereMaterial.uniforms.u_time.value = time
         startLoadingTime= endLoadingTime
 
+        projectPlaneMarterial.uniforms.u_time.value = time
+        
+        if(fadeInProject){
+            scene.add(projectPlaneMesh)
+            fadeInTime + deltaTime < 1 ? fadeInTime += deltaTime * 3 : fadeInTime = 1;
+            projectPlaneMesh.scale.x = fadeInTime
+            projectPlaneMesh.scale.y = fadeInTime
+            
+        }
+        else{
+            scene.remove(projectPlaneMesh)
+        }
+
         requestAnimationFrame(animate)
         renderer.render(scene, camera)
     }
@@ -150,14 +242,45 @@ function main() {
 
     function onWindowResize(){
 
-        
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
         
         renderer.setSize( window.innerWidth, window.innerHeight );
         
     }
-    window.addEventListener( 'resize', onWindowResize, false );
+    window.addEventListener('resize', onWindowResize, false );
+
+    function transitionProjectBugtracker(){
+        fadeInProject = true
+        currentHoverProject = "bugtracker"
+    }
+
+    function transitionOutProject(){
+        fadeInProject = false
+        fadeInTime = 0.0
+    }
+
+    function transitionProjectChatapp(){
+        fadeInProject = true
+        currentHoverProject = "bugtracker"
+    }
+
+    function transitionProjectSpaceInvader(){
+        fadeInProject = true
+        currentHoverProject = "bugtracker"
+    }
+
+    document.getElementById('bugtracker').addEventListener('mouseover', transitionProjectBugtracker)
+
+    document.getElementById('chatapp').addEventListener('mouseover', transitionProjectChatapp)
+
+    document.getElementById('spaceinvader').addEventListener('mouseover', transitionProjectSpaceInvader)
+
+    document.getElementById('bugtracker').addEventListener('mouseout', transitionOutProject)
+
+    document.getElementById('chatapp').addEventListener('mouseout', transitionOutProject)
+
+    document.getElementById('spaceinvader').addEventListener('mouseout', transitionOutProject)
 }
 
 aboutMeButton.addEventListener("click", () => {
