@@ -8,11 +8,47 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="canvas-div">
+
+    </div>
     <div id="root">
         <div id="option">
-            <p>About me</p>
-            <p>Skills</p>
-            <p>Projects</p>
+          <div>
+            <p class="text" id="about-me-btn">About me</p>
+            <div class="text-div">
+            </div>
+          </div>
+          <div>
+            <p class="text" id="skill-btn">Skills</p>
+            <div class="text-div">
+            </div>
+          </div>
+          <div>
+            <p class="text" id="project-btn">Projects</p>
+            <div class="text-div">
+            </div>
+          </div>
+        </div>
+
+        <div id="content">
+          <div id="about-me-content"></div>
+          <div id="skill-content">
+            <img src="" alt="express">
+            <img src="" alt="react">
+            <img src="" alt="C++">
+            <img src="" alt="python">
+          </div>
+          <div id="project-content">
+            <div>
+              <p>Bug tracker</p>
+            </div>
+            <div>
+              <p>Chat app</p>
+            </div>
+            <div>
+              <p>Space Invader</p>
+            </div>
+          </div>
         </div>
     </div>
 </body>
@@ -26,11 +62,6 @@
   }
 </script>
 
-<script type="module">
-
-  import * as THREE from 'three';
-
-  const scene = new THREE.Scene();
-
+<script type="module" src="./index.js">
 </script>
 </html>
