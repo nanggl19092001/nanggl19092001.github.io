@@ -143,7 +143,7 @@ function main() {
         uniform vec2 u_mouseUv;
         void main() {
 
-            vec3 newPos = position + normal*sin((position.x * position.y * position.z) * 10. + u_time);
+            vec3 newPos = position + normal*sin((position.x * position.y * position.z) * 10. + u_time) * 0.1;
 
             gl_Position = projectionMatrix * modelViewMatrix * vec4(newPos, 1.0);
             f_uv = uv;
