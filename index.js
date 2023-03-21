@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { TextureLoader, Vector2 } from 'three';
+import { TextureLoader, Vector2, Vector3 } from 'three';
 
 let currentPage = null
 let theLetters = "abcdefghijklmnopqrstuvwxyz#%&^+=-";
@@ -10,7 +10,13 @@ let skillButton = document.getElementById("skill-btn")
 let projectButton = document.getElementById("project-btn")
 
 function main() {
-    let bugtrackerTexture = new TextureLoader().load('temp.png')
+    let aboutmeColor = new Vector3(1.0, 0.0, 0.0)
+    let skillColor = new Vector3(1.0, 0.0, 1.0)
+    let projectColor = new Vector3(0.0, 0.5, 1.0)
+
+    let bugtrackerTexture = new TextureLoader().load('assets/img/bugtracker.png')
+    let chatappTexture = new TextureLoader().load('assets/img/chatapp.png')
+    let spaceInvaderTexture = new TextureLoader().load('assets/img/spaceinvader.png')
     let fadeInProject = false
     let currentHoverProject = ''
     let fadeInTime = 0
@@ -30,7 +36,7 @@ function main() {
     let loadingTime = 2.0
 
     //Project plane init
-    const projectPlaneGeometry = new THREE.PlaneGeometry(4, 4)
+    const projectPlaneGeometry = new THREE.PlaneGeometry(4, 5)
     const projectPlaneMarterial = new THREE.ShaderMaterial({
         transparent: true,
         vertexShader:`
@@ -53,7 +59,7 @@ function main() {
         void main(){
             float shake_power = 0.01;
             
-            float shake_rate = 0.3;
+            float shake_rate = 0.2;
             
             float shake_speed = 2.0;
             
@@ -150,13 +156,16 @@ function main() {
         uniform float u_time;
         uniform vec2 u_mouse;
 
+        uniform vec3 u_color;
+
         void main() {
             float d = distance(gl_FragCoord.xy/u_resolution, u_mouse);
-            vec3 color = vec3(1.0, 0.5, 0.5) * (1.0 - d);
+            vec3 color = u_color * (1.0 - d);
             gl_FragColor = vec4(color, 0.8 * f_uv.x * f_uv.y);
         }
         `,
         uniforms: {
+            u_color: {type: 'v3', value: aboutmeColor},
             u_resolution: {type: 'v2', value: new THREE.Vector2(window.innerWidth, window.innerHeight)},
             u_texture: {type: 't', value: new TextureLoader().load('./noise.png')},
             u_time: {type: 'f', value: 0},
@@ -253,16 +262,19 @@ function main() {
     function transitionProjectBugtracker(){
         fadeInProject = true
         currentHoverProject = "bugtracker"
+        projectPlaneMarterial.uniforms.u_texture.value = bugtrackerTexture
     }
 
     function transitionOutProject(){
         fadeInProject = false
         fadeInTime = 0.0
+        projectPlaneMarterial.uniforms.u_texture.value = spaceInvaderTexture
     }
 
     function transitionProjectChatapp(){
         fadeInProject = true
         currentHoverProject = "bugtracker"
+        projectPlaneMarterial.uniforms.u_texture.value = chatappTexture
     }
 
     function transitionProjectSpaceInvader(){
@@ -281,43 +293,46 @@ function main() {
     document.getElementById('chatapp').addEventListener('mouseout', transitionOutProject)
 
     document.getElementById('spaceinvader').addEventListener('mouseout', transitionOutProject)
-}
 
-aboutMeButton.addEventListener("click", () => {
-    if(currentPage !== "about-me"){
-        currentPage = "about-me"
-        document.getElementById("about-me-content").style.display = "block"
-        document.getElementById("about-me-content").textContent = ""
-        document.getElementById("skill-content").style.display = "none"
-        document.getElementById("project-content").style.display = "none"
-        for(let i = 0; i < aboutMeText.length; i++){
-            if(aboutMeText[i] === "."){
-                document.getElementById("about-me-content").textContent += "\n"
-            }
-            else{
-                document.getElementById("about-me-content").textContent += aboutMeText[i]
+    aboutMeButton.addEventListener("click", () => {
+        if(currentPage !== "about-me"){
+            currentPage = "about-me"
+            SphereMaterial.uniforms.u_color.value = aboutmeColor
+            document.getElementById("about-me-content").style.display = "block"
+            document.getElementById("about-me-content").textContent = ""
+            document.getElementById("skill-content").style.display = "none"
+            document.getElementById("project-content").style.display = "none"
+            for(let i = 0; i < aboutMeText.length; i++){
+                if(aboutMeText[i] === "."){
+                    document.getElementById("about-me-content").textContent += "\n"
+                }
+                else{
+                    document.getElementById("about-me-content").textContent += aboutMeText[i]
+                }
             }
         }
-    }
-})
-
-skillButton.addEventListener("click", () => {
-    if(currentPage !== "skill"){
-        currentPage = "skill"
-        document.getElementById("about-me-content").style.display = "none"
-        document.getElementById("skill-content").style.display = "block"
-        document.getElementById("project-content").style.display = "none"
-    }
-})
-
-projectButton.addEventListener("click", () => {
-    if(currentPage !== "project"){
-        currentPage = "project"
-        document.getElementById("about-me-content").style.display = "none"
-        document.getElementById("skill-content").style.display = "none"
-        document.getElementById("project-content").style.display = "block"
-    }
-})
+    })
+    
+    skillButton.addEventListener("click", () => {
+        if(currentPage !== "skill"){
+            currentPage = "skill"
+            SphereMaterial.uniforms.u_color.value = skillColor
+            document.getElementById("about-me-content").style.display = "none"
+            document.getElementById("skill-content").style.display = "block"
+            document.getElementById("project-content").style.display = "none"
+        }
+    })
+    
+    projectButton.addEventListener("click", () => {
+        if(currentPage !== "project"){
+            currentPage = "project"
+            SphereMaterial.uniforms.u_color.value = projectColor
+            document.getElementById("about-me-content").style.display = "none"
+            document.getElementById("skill-content").style.display = "none"
+            document.getElementById("project-content").style.display = "block"
+        }
+    })
+}
 
 main()
 

@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
+    <link rel="icon" href="assets/icon/porfolio-icon.png">
     <title>NGUYEN HUU NANG</title>
 </head>
 <body>
@@ -12,7 +13,15 @@
 
     </div>
     <div id="root">
+        <div id="contact">
+          <a href="https://www.facebook.com/nguyen.caothang.750" target="_blank"><img class="contact-icon" src="assets/icon/facebook.png" alt="facebook"></a>
+          <a href="https://github.com/nanggl19092001" target="_blank"><img class="contact-icon" src="assets/icon/github.webp" alt="github"></a>
+          <a href="https://www.linkedin.com/in/nguyen-huu-nang-7b75a6267/" target="_blank"><img class="contact-icon" src="assets/icon/linkedin.png" alt="linkedin"></a>
+        </div>
         <div id="option">
+          <div>
+            <img src="assets/icon/porfolio-icon.png" width="30px" height="30px" alt="">
+          </div>
           <div>
             <p class="text" id="about-me-btn">About me</p>
             <div class="text-div">
@@ -33,20 +42,28 @@
         <div id="content">
           <div id="about-me-content"></div>
           <div id="skill-content">
-            <img src="" alt="express">
-            <img src="" alt="react">
-            <img src="" alt="C++">
-            <img src="" alt="python">
+            <div class="skill-container">
+              <span id="nodejs">NodeJS/Express</span>
+            </div>
+            <div class="skill-container" >
+              <span id="react">React</span>
+            </div>
+            <div class="skill-container">
+              <span id="c++">C++</span>
+            </div>
+            <div class="skill-container">
+              <span id="python">Python</span>
+            </div>
           </div>
           <div id="project-content">
-            <div id="bugtracker">
-              <p>Bug tracker</p>
+            <div class="project-container">
+              <a href="https://bugtracker-nhn-lp.netlify.app/" target="_blank" id="bugtracker">Bug tracker <img src="assets/icon/external-link.png" alt="el" class="project-icon"></a>
             </div>
-            <div id="chatapp">
-              <p>Chat app</p>
+            <div class="project-container">
+              <a href="https://github.com/nanggl19092001/realtimecommunication" target="_blank" id="chatapp">Chat app <img src="assets/icon/external-link.png" alt="el" class="project-icon"></a>
             </div>
-            <div id="spaceinvader">
-              <p>Space Invader</p>
+            <div class="project-container">
+              <a href="https://github.com/nanggl19092001/SpaceInvaderOpenGL" target="_blank" id="spaceinvader">Space Invader <img src="assets/icon/external-link.png" alt="el" class="project-icon"></a>
             </div>
           </div>
         </div>
