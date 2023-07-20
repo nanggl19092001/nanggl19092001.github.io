@@ -2,8 +2,7 @@ import * as THREE from 'three';
 import { TextureLoader, Vector2, Vector3 } from 'three';
 
 let currentPage = null
-let theLetters = "abcdefghijklmnopqrstuvwxyz#%&^+=-";
-let aboutMeText = "My name is Nguyen Huu Nang. A senior computer science student. with interest in back-end developement and computer graphics"
+let aboutMeText = "My name is Nguyen Huu Nang. A senior computer science student. with interest in back-end developement, computer graphics, IT industry in general"
 
 let aboutMeButton = document.getElementById("about-me-btn")
 let skillButton = document.getElementById("skill-btn")
@@ -61,7 +60,7 @@ function main() {
             
             float shake_rate = 0.2;
             
-            float shake_speed = 2.0;
+            float shake_speed = 1.0;
             
             float shake_block_size = 30.5;
             
